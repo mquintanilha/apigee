@@ -1,6 +1,6 @@
 ---
 # tasks file for apigee-install-edge
-- name: 1. Install "{{ packages }}"
+- name: 1. Install Packages
   gather_facts: False
   become: true
 
@@ -13,7 +13,7 @@
     name: "{{ packages }}"
     state: present
 
-- name: 2. Package update - "{{ packages }}" and Config
+- name: 2. Package update - and Config
   gather_facts: False
   become: true
 
