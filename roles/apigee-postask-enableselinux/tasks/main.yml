@@ -1,9 +1,6 @@
 ---
 # tasks file for apigee-pretask-enable-selinux
-- name: 1. Install library for SELInux Env
-  become: true
-
-- name: 2. Enable SELinux 
+- name: 1. Enable SELinux 
   become: true
   
   selinux:
