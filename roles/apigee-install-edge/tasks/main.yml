@@ -15,17 +15,10 @@
 - name: 2. Package update and Config
   become: true
 
-  vars:
-    aws_region: us-east-2
-  
-  raw: '{% if ansible_distribution == "[Cc]entos" %}yum-config-manager --enable ol7_optional_latest{% endif %}'
-
   yum:
     name: rh-amazon-rhui-client.noarch
     state: latest
-  
-  raw: "yum-config-manager --enable rhui-{{ aws_region }} -rhel-server-extras rhui-{{ aws_region }} -rhel-server-optional"
-
+    
 - name: 3. Download Script
   become: true
 
@@ -36,8 +29,11 @@
 
 - name: 4. Install Edge
   become: true
-  raw: "{{ temp_script_path }} apigeeuser={{ apigee_user }} apigeepassword={{ apigee_pass }}"
 
-- name: 4. Install APIGee Utility
-  become: true
-  raw: "{{ apigee_bin_path }} apigee-setup install"
+  vars:
+    aws_region: us-east-2
+  
+  raw:
+    - '{% if ansible_distribution == "[Cc]entos" %}yum-config-manager --enable ol7_optional_latest{% else %}yum-config-manager --enable rhui-{{ aws_region }} -rhel-server-extras rhui-{{ aws_region }} -rhel-server-optional{% endif %}'
+    - "{{ temp_script_path }} apigeeuser={{ apigee_user }} apigeepassword={{ apigee_pass }}"
+    - "{{ apigee_bin_path }} apigee-setup install"
