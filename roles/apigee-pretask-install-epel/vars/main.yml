@@ -1,0 +1,6 @@
+---
+# vars file for apigee-pretask-install-epel
+
+# EPEL URLs
+url_base_v6: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+url_base_v7: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm

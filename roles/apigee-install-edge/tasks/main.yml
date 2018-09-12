@@ -1,0 +1,52 @@
+---
+# tasks file for apigee-install-edge
+- name: 1. Install {{ packages }}
+  gather_facts: False
+  become: true
+
+  vars:
+    packages:
+    - yum-utils
+    - yum-plugin-priorities
+
+  yum:
+    name: "{{ packages }}"
+    state: present
+
+- name: 2. Package update - {{ packages }} and Config
+  gather_facts: False
+  become: true
+
+  vars:
+    packages:
+    - rh-amazon-rhui-client.noarch
+    aws_region:
+    - us-east-1
+  
+  raw: {% if ansible_distribution == "[Cc]entos" %}yum-config-manager --enable ol7_optional_latest{% endif %}
+
+  yum:
+    name: "{{ packages }}"
+    state: latest
+  
+  raw: 
+    yum-config-manager --enable rhui-{{ aws_region }}-rhel-server-extras rhui-{{ aws_region }}-rhel-server-optional;
+
+- name: 3. Download Script
+  gather_facts: False
+  become: true
+
+  get_url:
+    url: "{{ url_base_script }}"
+    dest: "{{ temp_script_path }}"
+    mode: 0700
+
+- name: 4. Install Edge
+  gather_facts: False
+  become: true
+  raw: "{{ temp_script_path }}" apigeeuser="{{ apigee_user }}" apigeepassword="{{ apigee_pass }}"
+
+- name: 4. Install APIGee Utility
+  gather_facts: False
+  become: true
+  raw: "{{ apigee_bin_path }}" apigee-setup install

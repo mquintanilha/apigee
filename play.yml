@@ -1,0 +1,11 @@
+---
+# Playbook for APIGee Quick Start
+- name: APIGee Setup
+  hosts: targets
+
+  roles:
+  - role: apigee-pretask-disableselinux
+  - role: apigee-pretask-install-epel
+  - role: apigee-install-edge
+  - role: apigee-postask-enableselinux
+

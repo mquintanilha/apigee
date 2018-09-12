@@ -1,0 +1,17 @@
+---
+# vars file for apigee-pretask-install-epel
+
+# EPEL URLs
+url_base_v6: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+url_base_v7: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+# Base scripts
+url_base_script: https://software.apigee.com/bootstrap_4.18.05.sh
+apigee_bin_path: /opt/apigee/apigee-service/bin/apigee-service
+
+#System Paths
+temp_script_path: /tmp/bootstrap_4.18.05.sh
+
+#APIgee credentials
+apigee_user: geeUser
+apigee_pass: #Run ansible-vault encrypt_string "STRING" --new-vault-password-file=config/ after clone repo
