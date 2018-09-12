@@ -1,6 +1,6 @@
 ---
 # tasks file for apigee-install-edge
-- name: 1. Install {{ packages }}
+- name: 1. Install "{{ packages }}"
   gather_facts: False
   become: true
 
@@ -13,7 +13,7 @@
     name: "{{ packages }}"
     state: present
 
-- name: 2. Package update - {{ packages }} and Config
+- name: 2. Package update - "{{ packages }}" and Config
   gather_facts: False
   become: true
 
@@ -23,14 +23,14 @@
     aws_region:
     - us-east-1
   
-  raw: {% if ansible_distribution == "[Cc]entos" %}yum-config-manager --enable ol7_optional_latest{% endif %}
+  raw: '{% if ansible_distribution == "[Cc]entos" %}yum-config-manager --enable ol7_optional_latest{% endif %}'
 
   yum:
     name: "{{ packages }}"
     state: latest
   
   raw: 
-    yum-config-manager --enable rhui-{{ aws_region }}-rhel-server-extras rhui-{{ aws_region }}-rhel-server-optional;
+    yum-config-manager --enable rhui-"{{ aws_region }}"-rhel-server-extras rhui-"{{ aws_region }}"-rhel-server-optional;
 
 - name: 3. Download Script
   gather_facts: False
