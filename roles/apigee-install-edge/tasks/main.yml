@@ -18,15 +18,12 @@
   become: true
 
   vars:
-    packages:
-    - rh-amazon-rhui-client.noarch
-    aws_region:
-    - us-east-1
+    aws_region: us-east-2
   
   raw: '{% if ansible_distribution == "[Cc]entos" %}yum-config-manager --enable ol7_optional_latest{% endif %}'
 
   yum:
-    name: "{{ packages }}"
+    name: rh-amazon-rhui-client.noarch
     state: latest
   
   raw: "yum-config-manager --enable rhui-{{ aws_region }} -rhel-server-extras rhui-{{ aws_region }} -rhel-server-optional"
