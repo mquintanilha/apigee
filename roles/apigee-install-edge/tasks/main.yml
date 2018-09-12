@@ -13,7 +13,7 @@
     name: "{{ packages }}"
     state: present
 
-- name: 2. Package update - and Config
+- name: 2. Package update and Config
   gather_facts: False
   become: true
 
