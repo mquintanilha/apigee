@@ -1,13 +1,11 @@
 ---
 # tasks file for apigee-pretask-install-epel
 - name: 1. Gather Facts
-  gather_facts: False
 
   set_fact:
     fact_distro_version: '{% if ansible_distribution == CentOS and ansible_distribution_major_version == 7 %}centos_7{% else %}centos_6{% endif %}'
 
 - name: 2. Add repository
-  gather_facts: False
   become: true
 
   yum_repository:
