@@ -1,11 +1,10 @@
 ---
 # tasks file for apigee-pretask-install-epel
-
 - name: 1. Gather Facts
   gather_facts: False
 
   set_fact:
-    fact_distro_version: "{ {%if ansible_distribution == CentOS and ansible_distribution_major_version == 7|int %}centos_7{% else %}centos_6{% endif %} }"
+    fact_distro_version: {% if ansible_distribution == CentOS and ansible_distribution_major_version == 7|int %}centos_7{% else %}centos_6{% endif %}
 
 - name: 2. Add repository
   gather_facts: False
@@ -19,7 +18,7 @@
     %}{{ url_base_v6 }}
     {% elif fact_distro_version == "centos_7"
     %}{{ url_base_v7 }}
-    {% endif 
+    {% endif
     %}
     notify:
       - update cache
