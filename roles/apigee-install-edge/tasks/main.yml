@@ -29,8 +29,7 @@
     name: "{{ packages }}"
     state: latest
   
-  raw: 
-    yum-config-manager --enable rhui-"{{ aws_region }}"-rhel-server-extras rhui-"{{ aws_region }}"-rhel-server-optional;
+  raw: "yum-config-manager --enable rhui-{{ aws_region }} -rhel-server-extras rhui-{{ aws_region }} -rhel-server-optional"
 
 - name: 3. Download Script
   gather_facts: False
@@ -44,9 +43,9 @@
 - name: 4. Install Edge
   gather_facts: False
   become: true
-  raw: "{{ temp_script_path }}" apigeeuser="{{ apigee_user }}" apigeepassword="{{ apigee_pass }}"
+  raw: "{{ temp_script_path }} apigeeuser={{ apigee_user }} apigeepassword={{ apigee_pass }}"
 
 - name: 4. Install APIGee Utility
   gather_facts: False
   become: true
-  raw: "{{ apigee_bin_path }}" apigee-setup install
+  raw: "{{ apigee_bin_path }} apigee-setup install"
